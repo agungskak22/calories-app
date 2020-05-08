@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "763108843789-1e18bqkh4aip0kstb4dojv5ka159mc9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "calories.com",
+            "certificate_hash": "1d55cdeb9290f869a32bf157281a04eebb76d8c7"
+          }
+        },
+        {
           "client_id": "763108843789-ve8936ah6f34lvelqmv3qjc22689g9t5.apps.googleusercontent.com",
           "client_type": 3
         }
