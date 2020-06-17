@@ -25,8 +25,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+    private final String TAG = "LoginActivity";
 
     private FirebaseAuth auth;
+
     private TextInputLayout cont_email, cont_password;
     private TextInputEditText email, password;
     private TextView tv_register;
@@ -95,8 +97,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View V){
         switch (V.getId()){
             case R.id.button_login:
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                finish();
+                loginAccount();
                 break;
             case R.id.tv_register:
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
@@ -120,23 +121,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void loginAccount(){
         if (!isValidForm()) return;
+
+        progress_bar.setVisibility(View.VISIBLE);
+
         String txt_email = email.getText().toString();
         String txt_password = password.getText().toString();
-        progress_bar.setVisibility(View.VISIBLE);
 
         auth.signInWithEmailAndPassword(txt_email, txt_password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    FirebaseUser user = auth.getCurrentUser();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
                 }
                 else {
+                    Log.w(TAG,"createUserWithEmail:failure", task.getException());
                     Toast.makeText(LoginActivity.this, "Login gagal!", Toast.LENGTH_SHORT).show();
                 }
-
+                progress_bar.setVisibility(View.GONE);
             }
         });
 
